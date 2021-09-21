@@ -3,12 +3,12 @@
 $server = "localhost";
 $username = "root";
 $password = "";
-$database = "todo_app";
+$database = "todo";
 
 $conn = mysqli_connect($server, $username, $password, $database);
 
-if (!$conn === false) {
-    die("ERROR Colud not connect.". mysqli_connect_error());
+if (!$conn) {
+    die("<script>alert('Connection Failed.')</script>");
 }
 
 ?>
