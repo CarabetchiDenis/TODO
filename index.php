@@ -1,83 +1,86 @@
+<?php
+$bdd = new PDO('mysql:host=localhost;dbname=TODOO;', 'root','');
+if(isset($_POST['valider'])){
+    if(!empty($_POST['message'])){        
+        $message = htmlspecialchars($_POST['message']);   
+
+        $insererMessage = $bdd->prepare('INSERT INTO messages(message) VALUES (?)');
+        $insererMessage->execute(array( $message));
+    } else {
+        echo "Veuillez copmleter tous les champs...";
+    }
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css "href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>TODO List</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="#">
    
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Messagerie</title>
 </head>
 <body>
-    <form action="" method="post" >
-        <h1>Welcome TO DO</h1>
-        <div class="wrapper">
-            <div class="inputFields">
-                <input type="text" id="taskValue" placeholder="Écrire qqch...">
-                <button class="btn" type="submit">Send</button>
-            </div>
-            <hr>
-            <div class="content"  >
-                <ul>
-                    <li>
-                        <span class="text">new record.</span>
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-
-                    </li>
-                    <li>
-                        <span class="text">create.</span>
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </li>
-                    <li>
-                        <span class="text">read.</span>
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </li>
-                    <li>
-                        <span class="text">blabla.</span>
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </li>                    
-                </ul>
-                <div class="pending-text">Total 4 Écriture</div>
-            </div>
+    <form action="" method="post" align="center">
+        <div id="formulaire">                
+        <textarea name="message" id="message" placeholder="écrire qqch..."></textarea>
+        <br><br>
+        <input type="submit"  onclick="get_insert()" name="valider">
+        <button onclick="show_afficher()">Afficher</button>
         </div>
-        
     </form>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function)
+    <section id="messages"  style="background:#ec4343;" ></section>
+
+
+     <!-------INSERT------>
+    <script>/*
+
+        function get_insert() {
+               
+          document.getElementById("formulaire").innerHTML = loader;
+   
+           var message = $("#message").value();
+              
+           var xhttp = new XMLHttpRequest();
+           xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+              document.getElementById("formulaire").innerHTML = this.responseText;
+             }
+            };
+   
+            xhttp.open("POST", "insertm.php", true);            
+            xhttp.send();
+        }  */
+
     </script>
+    <!-----AFFICHER-------->
+     <script>
+        /*
+        function get_afficher() {
+            var loader =  '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>';  
+            document.getElementById("messages").innerHTML = loader;
 
+            var m_message = document.getElementById("message").value;
+            
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+             if (this.readyState == 4 && this.status == 200) {
+             document.getElementById("message").innerHTML = this.responseText;
+             }
+            };
 
+            xhttp.open("POST", "affm.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("submit=true&Message=" + m_message);
+        }     */
 
-
-
-
-
-
-	
-	<script>
-	
-        // Add Task
-        $("#addBtn").on("click", function(e) {
-            e.preventDefault();
-
-            var task = $("#taskValue").val();
-
-            $.ajax({
-                url: "traitement.php",
-                type: "POST",
-                data: {task: task},
-                success: function(data) {
-                    loadTasks();
-                    $("#taskValue").val('');
-                    if (data == 0) {
-                        alert("Something wrong went. Please try again.");
-                    }
-                }
-            });
-        });
-	</script>
+    </script> 
+     
+    
 </body>
 </html>
