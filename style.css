@@ -1,0 +1,30 @@
+body, html {
+    height: 100vh;
+    margin: 0;
+    overflow-y:hidden;
+}
+  
+.column {
+    float: left;
+    width: 50%;
+    height:100vh;
+}
+  
+  /* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    height:100%;
+}
+
+#todo_log {
+    background: white;
+    color: black;
+    height: 100%;
+    margin: 20px;
+}
+
+#left_container {
+    margin:20px;
+}
